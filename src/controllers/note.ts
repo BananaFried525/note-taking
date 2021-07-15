@@ -37,6 +37,7 @@ export class NoteController {
             let { filter } = req.query;
             let allowFilter = ['title', '-title', 'createAt', '-createAt'];
             if (allowFilter.indexOf(filter) == -1) filter = '';
+            
             let noteList = await NoteModel.find({}).sort(filter);
             let respNotes = new Array<Note>();
             noteList.forEach(note => {
@@ -47,8 +48,9 @@ export class NoteController {
                     createAt: note?.createAt || new Date(),
                     tags: note?.tags || new Array<String>()
                 };
-                respNotes.push(a)
-            })
+                respNotes.push(a);
+            });
+
             res.status(200).json(new ResponseModel("success", respNotes));
         } catch (error) {
             res.status(500).json(new ResponseModel("error", error));
