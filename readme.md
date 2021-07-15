@@ -69,6 +69,7 @@
 
 ### ขั้นตอนการติดตั้ง
 ให้ clone project นี้ไปแล้วพิมพ์คำสั่ง docker-compose up --build โดย server และ database จะทำการ run ผ่าน Docker ซึ่งจะ expose ผ่าน port 8081
+
 Example: localhost:8081/api/note/list
 
 
