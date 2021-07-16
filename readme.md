@@ -24,6 +24,7 @@
 }
 ```
 
+
 **2. GET /api/note/detail?id=$id**
 เมื่อต้องการจะเรียกดูรายละเอียดของโน๊ตแต่ละโน๊ตให้ request GET ไปยัง URL: localhost:8081/api/note/detail?id=$id โดยที่ $id จะแทนด้วย id ของแต่ละโน๊ตที่ต้องการเรียกดู(ต้องลง id มาเสมอ) เมื่อระบบตอบกลับมาจะได้ http status code: 200 พร้อมกับข้อมูลดังตัวอย่าง
 
@@ -43,11 +44,13 @@
 }
 ```
 
+
 **3. GET /api/note/list?filter=$title or $createAt**
 เมื่อต้องการจะเรียกดูรายละเอียดของโน๊ตแต่ละโน๊ตให้ request GET ไปยัง URL: localhost:8081/api/note/list?filter=$title or $createAt โดยสามารถเรียงลำดับก่อนหลังได้ด้วย field title หรือ creatAt (ไม่จำเป็นต้องส่ง filter มาทุกครั้ง)
 * ถ้า filter=title จะเรียงลำดับตามตัวอักษรจากตัวใหญ่ไปตัวเล็กตามรหัส ascii
 * ถ้า filter=creatAt จะเรียงลำดับวันที่สร้างจากใหม่ไปเก่า
 ซึ่งจะได้ผลลัพธ์เป็น http status code: 200 พร้อมกับข้อมูลดังตัวอย่าง
+
 ```
 {
     "message":  "success",
@@ -67,9 +70,32 @@
 }
 ```
 
-### ขั้นตอนการติดตั้ง
-ให้ clone project นี้ไปแล้วพิมพ์คำสั่ง docker-compose up --build โดย server และ database จะทำการ run ผ่าน Docker ซึ่งจะ expose ผ่าน port 8081
 
-Example: localhost:8081/api/note/list
+**4. GET /api/note/list-tag?tagName=$tagName**
+เมื่อต้องการเรียกดูโน๊ตโดยที่อยากดูตามหมวดหมู่(tags) สามารถทำได้โดยการ request GET ไปยัง URL: localhost:8081/api/note/list-tag?tagName=$tagName โดย tagName จะแทนด้วย tag นั้นๆ ที่เราต้องการเรียกขึ้นมาดูซึ่งจะได้ผลลัพธ์เป็น http status code: 200 พร้อมกับข้อมูลดังตัวอย่าง
+
+```
+{
+    "message":  "success",
+    "data":  [
+        {
+            "id": "...",
+            "title": "...",
+            "content": "...",
+            "createAt": "...",
+            "tags": [
+                "..",
+                ".."
+            ]
+        },
+        {...}
+    ]
+}
+```
+
+
+### ขั้นตอนการติดตั้ง
+ให้ clone repository หลังนั้นให้พิมพ์คำสั่ง docker-compose up --build ลงใน folder ที่พึ่งทำการ clone มาโดย server และ database จะทำการ run ผ่าน Docker ซึ่งจะใช้ port 8081 ในการรัน server สามารถทดสอบได้ตาม API ตัวอย่าง
+**Example: localhost:8081/api/note/list**
 
 
